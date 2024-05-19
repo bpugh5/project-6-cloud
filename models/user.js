@@ -4,37 +4,6 @@ const bcrypt = require('bcryptjs')
 
 const sequelize = require('../lib/sequelize')
 const { Business } = require('./business')
-const { Photo } = require('./photo')
-const { Review } = require('./review')
-
-//   const User = sequelize.define('users', {
-//       annotation_id: { type: DataTypes.INTEGER, autoIncrement: true,
-//           primaryKey: true
-//       },
-//       firstName: {
-//           type: DataTypes.DATE,
-//           field: 'first_name'
-//       },
-//       lastName: {
-//           type: DataTypes.DATE,
-//           field: 'last_name'
-//       },
-//       email: DataTypes.STRING,
-//       password: DataTypes.STRING
-//   }, {
-//       freezeTableName: true,
-//       instanceMethods: {
-//           generateHash(password) {
-//               return bcrypt.hash(password, bcrypt.genSaltSync(8));
-//           },
-//           validPassword(password) {
-//               return bcrypt.compare(password, this.password);
-//           }
-//       }
-//   });
-
-//   return User;
-// }
 
 const User = sequelize.define('user', {
   id: { type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true },
