@@ -7,40 +7,6 @@ const sequelize = require('./lib/sequelize')
 const app = express()
 const port = process.env.PORT || 8000
 
-// app.use(rateLimit);
-
-// const ip_to_user = {};
-
-// function rateLimit(req, res, next) {
-//   user_ip = req.ip
-//   cur_req_time = Date.now();
-//   const initial_bucket_value = 5;
-
-//   user_bucket_data = ip_to_user[user_ip];  // .tokens, .last
-
-//   if (!user_bucket_data) {
-//       ip_to_user[user_ip] = {
-//           "tokens": initial_bucket_value,
-//           "last": cur_req_time
-//       }
-//   }
-
-//   elapsed = cur_req_time - user_bucket_data.last
-//   user_bucket_data.last = cur_req_time
-
-//   user_bucket_data.tokens += tokens_per_second * elapsed
-
-//   if (user_bucket_data.tokens > max_tokens)
-//       user_bucket_data.tokens = max_tokens
-
-//   if (user_bucket_data.tokens > 0) {
-//       handle_request_normally();
-//       user_bucket_data.tokens--;
-//   } else {
-//       res.status(429).json("You are being rate limited");
-//   }
-// }
-
 /*
  * Morgan is a popular logger.
  */
