@@ -80,7 +80,7 @@ This rate-limiting scheme should be backed by a Redis cache that runs in a Docke
 This assignment is worth 100 total points, broken down as follows:
 
   * 30 points: API allows the creation of new users via a `POST /users` endpoint
-WORKS !!!!!!
+  
   * 25 points: API allows users to log in via a `POST /users/login` endpoint
 
   * 5 points: API has a `GET /users/{userId}` endpoint that returns appropriate data
