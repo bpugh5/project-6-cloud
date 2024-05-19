@@ -6,7 +6,7 @@ You are provided some starter code in this repository that implements a MySQL/Se
   * An API server is implemented in `server.js`.
   * Individual API routes are modularized within the `api/` directory.
   * Sequelize models are implemented in the `models/` directory.
-  * Tests and a testing environment for the API are included in the `tests/` directory. You can import these tests into either Postman or Insomnia and build on them if you like. Note that, depending on where you're running your API server, you may need to update the `baseUrl` variable in the included testing environment to reflect the URL for your own server.
+  * Tte that, depending on where you're running your API server, you may need to update tests and a testing environment for the API are included in the `tests/` directory. You can import these tests into either Postman or Insomnia and build on them if you like. Note the `baseUrl` variable in the included testing environment to reflect the URL for your own server.
   * A script in `initDb.js` that populates the database with initial data from the `data/` directory.  You can run this script by running `npm run initdb`.
   * A Docker Compose specification in `compose.yml`.  This specification will launch the entire application from scratch, including populating the database using `initDb.js`.  Note that if you use this specification to launch the app, the `db-init` service and the `api` service will fail with an error (`ECONNREFUSED`) and be restarted continually until the database service is running and the database server itself is ready to accept connections.  Note that the Docker Compose specification relies on some environment variables being set in the included `.env` file.
 
@@ -80,7 +80,7 @@ This rate-limiting scheme should be backed by a Redis cache that runs in a Docke
 This assignment is worth 100 total points, broken down as follows:
 
   * 30 points: API allows the creation of new users via a `POST /users` endpoint
-
+WORKS !!!!!!
   * 25 points: API allows users to log in via a `POST /users/login` endpoint
 
   * 5 points: API has a `GET /users/{userId}` endpoint that returns appropriate data

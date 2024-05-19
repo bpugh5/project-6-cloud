@@ -1,5 +1,11 @@
 [
   {
+    "name": "Blake Pugh",
+    "email": "pughbl@oregonstate.edu",
+    "password": "hunter3",
+    "admin": true
+  },
+  {
     "name": "Nick Arzner",
     "email": "nick@block15.com",
     "password": "hunter2"

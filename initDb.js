@@ -18,5 +18,5 @@ sequelize.sync().then(async function () {
   await Business.bulkCreate(businessData, { fields: BusinessClientFields })
   await Photo.bulkCreate(photoData, { fields: PhotoClientFields })
   await Review.bulkCreate(reviewData, { fields: ReviewClientFields })
-  await User.bulkCreate(userData, {fields: UserClientFields })
+  await User.bulkCreate(userData, { fields: UserClientFields })
 })

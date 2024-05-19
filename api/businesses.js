@@ -4,6 +4,8 @@ const { ValidationError } = require('sequelize')
 const { Business, BusinessClientFields } = require('../models/business')
 const { Photo } = require('../models/photo')
 const { Review } = require('../models/review')
+const { User } = require('../models/user')
+const { requireAuthentication } = require('../lib/auth')
 
 const router = Router()
 
@@ -55,15 +57,20 @@ router.get('/', async function (req, res) {
 /*
  * Route to create a new business.
  */
-router.post('/', async function (req, res, next) {
-  try {
-    const business = await Business.create(req.body, BusinessClientFields)
-    res.status(201).send({ id: business.id })
-  } catch (e) {
-    if (e instanceof ValidationError) {
-      res.status(400).send({ error: e.message })
-    } else {
-      throw e
+router.post('/', requireAuthentication, async function (req, res) {
+  const user = await User.findByPk(req.user);
+  if ((req.user !== parseInt(req.body.ownerId)) && (user.admin == false)) {
+    res.status(403).json({error: "Unauthorized to access the specified resource"});
+  } else {
+    try {
+      const business = await Business.create(req.body, BusinessClientFields)
+      res.status(201).send({ id: business.id })
+    } catch (e) {
+      if (e instanceof ValidationError) {
+        res.status(400).send({ error: e.message })
+      } else {
+        throw e
+      }
     }
   }
 })
@@ -86,29 +93,41 @@ router.get('/:businessId', async function (req, res, next) {
 /*
  * Route to update data for a business.
  */
-router.patch('/:businessId', async function (req, res, next) {
-  const businessId = req.params.businessId
-  const result = await Business.update(req.body, {
-    where: { id: businessId },
-    fields: BusinessClientFields
-  })
-  if (result[0] > 0) {
-    res.status(204).send()
+router.patch('/:businessId', requireAuthentication, async function (req, res, next) {
+  const user = await User.findByPk(req.user);
+  const business = await Business.findByPk(req.params.businessId);
+  if ((req.user !== parseInt(req.body.ownerId)) && (user.admin == false) || (req.user !== business.ownerId)) {
+    res.status(403).json({error: "Unauthorized to access the specified resource"});
   } else {
-    next()
+    const businessId = req.params.businessId
+    const result = await Business.update(req.body, {
+      where: { id: businessId },
+      fields: BusinessClientFields
+    })
+    if (result[0] > 0) {
+      res.status(204).send()
+    } else {
+      next()
+    }
   }
 })
 
 /*
  * Route to delete a business.
  */
-router.delete('/:businessId', async function (req, res, next) {
-  const businessId = req.params.businessId
-  const result = await Business.destroy({ where: { id: businessId }})
-  if (result > 0) {
-    res.status(204).send()
+router.delete('/:businessId', requireAuthentication, async function (req, res, next) {
+  const user = await User.findByPk(req.user);
+  const business = await Business.findByPk(req.params.businessId);
+  if ((req.user !== business.ownerId) && (user.admin == false)) {
+    res.status(403).json({error: "Unauthorized to access the specified resource"});
   } else {
-    next()
+    const businessId = req.params.businessId
+    const result = await Business.destroy({ where: { id: businessId }})
+    if (result > 0) {
+      res.status(204).send()
+    } else {
+      next()
+    }
   }
 })
 
